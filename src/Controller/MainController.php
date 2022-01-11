@@ -6,6 +6,8 @@ use App\Services\Capitalizer;
 use App\Services\DashConverter;
 use App\Services\Master;
 use App\Services\MonoLogger;
+use App\Services\Transform;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,13 +38,13 @@ class MainController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $msg = $form->getData()['msg'];
             $converterIdx = $form->getData()['converter'];
+            $converterArr = [new Capitalizer(), new DashConverter()];
+            $master = new Master(new MonoLogger(), $converterArr[$converterIdx]);
+            $convertedMessage = $master->doTheMagic($msg);
         } else {
-            $msg = "";
+            $convertedMessage = "";
         }
 
-        $converterArr = [new Capitalizer(), new DashConverter()];
-        $master = new Master(new MonoLogger(), $converterArr[$converterIdx]);
-        $convertedMessage = $master->doTheMagic($msg);
 
         return $this->render('main/index.html.twig', [
             'form' => $form->createView(),
