@@ -6,7 +6,7 @@ use Monolog\Handler\StreamHandler;
 
 class MonoLogger
 {
-    public function do(string $text)
+    public function do(string $text):void
     {
         // create a log channel
         $log = new Logger('name');
