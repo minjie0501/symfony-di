@@ -1,9 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Hello MainController!
+{% endblock %}
 
 {% block body %}
 
-{{form(form)}}
-<h1>{{msg}}</h1>
-{% endblock %}
+	<style>
+		body {
+			font-size: 20px;
+            background-color: #D3D3D3;
+		}
+		#form {
+			display: flex;
+		}
+
+		#form > * {
+			margin-right: 10px;
+		}
+
+		#form > button {
+			padding-left: 10px;
+		}
+
+		.required {
+			margin-right: 5px;
+		}
+	</style>
+	<div class="content">
+		{{form(form)}}
+		</div>
+		<h1>{{msg}}</h1>
+	{% endblock %}
